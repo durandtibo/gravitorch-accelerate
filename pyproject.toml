@@ -32,7 +32,7 @@ accelerate = ">=0.20,<0.24"
 gravitorch = ">=0.0.20,<0.0.21"
 torch = ">=2.1.0,<2.2.0"
 python = ">=3.9,<3.12"
-minevent = ">=0.0.3,<0.0.4"
+minevent = ">=0.0.3,<0.0.4"  # TODO: remove later
 
 # Optional dependencies
 
