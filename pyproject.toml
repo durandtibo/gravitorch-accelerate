@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gtaccelerate"
-version = "0.0.1a2"
+version = "0.0.1a3"
 description = "Plugin to use accelerate with gravitorch"
 readme = "README.md"
 authors = ["Thibaut Durand <durand.tibo+gh@gmail.com>"]
