@@ -247,17 +247,17 @@ files = [
 
 [[package]]
 name = "coola"
-version = "0.0.24"
+version = "0.0.23"
 description = "A library to check if two complex/nested objects are equal or not"
 optional = false
 python-versions = ">=3.9,<3.12"
 files = [
-    {file = "coola-0.0.24-py3-none-any.whl", hash = "sha256:8898fc906477ad175291ae3ae9955e6d7c077e4076a9119fb49e915c13000ab5"},
-    {file = "coola-0.0.24.tar.gz", hash = "sha256:dedbce87132c4bf756f1b0e9a4481dfc375bd73c954599d2ce1e9efdf982843d"},
+    {file = "coola-0.0.23-py3-none-any.whl", hash = "sha256:9008e5c0d9cea6c325de4351620865c181c992912342f19a41de537e9840d127"},
+    {file = "coola-0.0.23.tar.gz", hash = "sha256:966fe57f87deb7511c9efe8c76a5c2125c529d1b16da09abf28fc29b5f60ef2c"},
 ]
 
 [package.extras]
-all = ["jax (>=0.3.0,<0.5)", "jaxlib (>=0.3)", "numpy (>=1.21,<1.27)", "pandas (>=1.3,<2.2)", "polars (>=0.18.3,<0.20)", "torch (>=1.10,<2.2)", "xarray (>=2023.3,<2023.9)"]
+all = ["jax (>=0.3.0,<0.5)", "jaxlib (>=0.3)", "numpy (>=1.21,<1.27)", "pandas (>=1.3,<2.2)", "polars (>=0.18.3,<0.20)", "torch (>=1.10,<2.1)", "xarray (>=2023.3,<2023.9)"]
 
 [[package]]
 name = "coverage"
@@ -697,17 +697,17 @@ files = [
 
 [[package]]
 name = "minevent"
-version = "0.0.5"
+version = "0.0.3"
 description = "Minimal event system for Machine Learning"
 optional = false
 python-versions = ">=3.9,<3.12"
 files = [
-    {file = "minevent-0.0.5-py3-none-any.whl", hash = "sha256:a5f2f3fb01c512e50d5c28a47ea349e39e17ce540a7573e5b8ff94c178d42c1c"},
-    {file = "minevent-0.0.5.tar.gz", hash = "sha256:0c526e345548747778b714d54ac461701a0899ac431217a7a0962c9d69f23b02"},
+    {file = "minevent-0.0.3-py3-none-any.whl", hash = "sha256:0ced4cecedff54d86145e592e630b30b6bb6a6fd5b5aa71f7c02594ecaa164dd"},
+    {file = "minevent-0.0.3.tar.gz", hash = "sha256:37138ce522eebb34b2c8d39d4547a346dab0c426f0288205a727b109d2ee189c"},
 ]
 
 [package.dependencies]
-coola = ">=0.0.20,<0.0.25"
+coola = ">=0.0.20,<0.0.24"
 
 [[package]]
 name = "mkdocs"
@@ -1670,4 +1670,4 @@ all = []
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.12"
-content-hash = "b6d738727f0ef1c7bf624c9439c2658cd8ce9b00fc8dce4b8bb137ede0354f21"
+content-hash = "9a8bc3402ce567709bf06ab0a529fcf477da0bb3b574588e0d42cb53ee6cfc47"
