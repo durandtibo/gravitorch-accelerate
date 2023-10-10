@@ -17,6 +17,7 @@ config-poetry :
 .PHONY : install
 install :
 	poetry install --no-interaction
+	pip install --upgrade "torch>=2.1.0"  # TODO: https://github.com/pytorch/pytorch/issues/100974
 
 .PHONY : install-all
 install-all :
