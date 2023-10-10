@@ -11,7 +11,7 @@ from accelerate import Accelerator
 from coola.utils import str_indent, str_mapping
 from gravitorch.engines.base import BaseEngine
 from gravitorch.engines.events import EngineEvents
-from gravitorch.loops.evaluation.basic import BaseBasicEvaluationLoop
+from gravitorch.loops.evaluation import BaseBasicEvaluationLoop
 from gravitorch.loops.evaluation.conditions import BaseEvalCondition
 from gravitorch.loops.observers import BaseLoopObserver
 from gravitorch.utils.profilers import BaseProfiler
