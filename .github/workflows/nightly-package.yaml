@@ -1,0 +1,66 @@
+name: Nightly Package Tests
+on:
+  schedule:
+    - cron: '40 11 * * *' # run at 11:40 AM UTC
+  workflow_dispatch:  # manual trigger
+
+jobs:
+  stable:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      max-parallel: 8
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, macos-latest ]
+        python-version: [ '3.9', '3.10', '3.11' ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install package
+        run: |
+          pip install gtaccelerate
+
+      - name: Test available packages
+        run: |
+          python -c "from gtaccelerate.loops.training import AccelerateTrainingLoop; " \
+            "loop = AccelerateTrainingLoop(); " \
+            "from gtaccelerate.loops.evaluation import AccelerateEvaluationLoop; " \
+            "loop = AccelerateEvaluationLoop(); "
+
+  latest:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      max-parallel: 8
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, macos-latest ]
+        python-version: [ '3.9', '3.10', '3.11' ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install package
+        run: |
+          pip install --pre gtaccelerate
+
+      - name: Test available packages
+        run: |
+          python -c "from gtaccelerate.loops.training import AccelerateTrainingLoop; " \
+            "loop = AccelerateTrainingLoop(); " \
+            "from gtaccelerate.loops.evaluation import AccelerateEvaluationLoop; " \
+            "loop = AccelerateEvaluationLoop(); "
