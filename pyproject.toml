@@ -30,7 +30,7 @@ packages = [
 # Core dependencies
 accelerate = ">=0.20,<0.24"
 gravitorch = ">=0.0.22,<0.0.23"
-torch = ">=2.1.0,<2.2.0"
+torch = ">=2.0.0,<2.2.0"
 python = ">=3.9,<3.12"
 
 # Optional dependencies
@@ -55,7 +55,7 @@ pygments = "^2.16"
 pytest = "^7.4"
 pytest-cov = "^4.1"
 pytest-timeout = "^2.2"
-ruff = ">=0.1.1,<1.0"
+ruff = ">=0.1.2,<1.0"
 xdoctest = "^1.1"
 
 [build-system]
