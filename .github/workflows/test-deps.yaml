@@ -96,7 +96,7 @@ jobs:
       matrix:
         os: [ ubuntu-latest ]
         python-version: [ '3.9', '3.10', '3.11' ]
-        gravitorch-version: [ 2.1.0, 2.0.1 ]
+        gravitorch-version: [ 0.0.22 ]
 
     steps:
       - name: Checkout
