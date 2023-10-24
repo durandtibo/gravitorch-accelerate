@@ -3,14 +3,15 @@ from __future__ import annotations
 __all__ = ["AccelerateTrainingLoop"]
 
 import logging
-from collections.abc import Callable, Iterable
+from collections.abc import Callable
 from typing import Any
 
 import torch
 from accelerate import Accelerator
 from coola.utils import str_indent, str_mapping
 from gravitorch import constants as ct
-from gravitorch.engines.base import BaseEngine
+from gravitorch.datastreams import IterableDataStream
+from gravitorch.engines import BaseEngine
 from gravitorch.engines.events import EngineEvents
 from gravitorch.loops.observers import BaseLoopObserver
 from gravitorch.loops.training import BaseBasicTrainingLoop
@@ -108,42 +109,25 @@ class AccelerateTrainingLoop(BaseBasicTrainingLoop):
         )
         return f"{self.__class__.__qualname__}(\n  {args}\n)"
 
-    def _prepare_model_optimizer_dataflow(
+    def _prepare_model_optimizer_datastream(
         self, engine: BaseEngine
-    ) -> tuple[Module, Optimizer, Iterable]:
-        r"""Prepares the model, optimizer and data loader.
-
-        Args:
-        ----
-            engine (``BaseEngine``): Specifies the engine.
-
-        Returns:
-        -------
-            ``torch.nn.Module``, ``torch.optim.Optimizer``,
-                ``Iterable``: A tuple with the model, the optimizer
-                and the data loader.
-        """
-        logger.info("Preparing the model, optimizer, and data loader...")
+    ) -> tuple[Module, Optimizer, IterableDataStream]:
+        logger.info("Preparing the model, optimizer, and datastream...")
         model, optimizer, dataloader = self._accelerator.prepare(
             engine.model,
             engine.optimizer,
-            engine.datasource.get_dataloader(loader_id=self._tag, engine=engine),
+            engine.datasource.get_iterable(iter_id=self._tag, engine=engine),
         )
-        logger.info("Training data loader has been created")
-        return model, optimizer, dataloader
-
-    def _prepare_model_optimizer_dataloader(  # TODO: remove later
-        self, engine: BaseEngine
-    ) -> tuple[Module, Optimizer, Iterable]:
-        return self._prepare_model_optimizer_dataflow(engine)
+        logger.info("Training datastream has been created")
+        return model, optimizer, IterableDataStream(dataloader)
 
     def _train_one_batch(
         self, engine: BaseEngine, model: Module, optimizer: Optimizer, batch: Any
     ) -> dict:
-        engine.fire_event(EngineEvents.TRAIN_ITERATION_STARTED)
+        engine.trigger_event(EngineEvents.TRAIN_ITERATION_STARTED)
         optimizer.zero_grad(self._set_grad_to_none)
         output = model(batch)
-        engine.fire_event(EngineEvents.TRAIN_FORWARD_COMPLETED)
+        engine.trigger_event(EngineEvents.TRAIN_FORWARD_COMPLETED)
 
         loss = output[ct.LOSS]
         if torch.isnan(loss):
@@ -151,16 +135,16 @@ class AccelerateTrainingLoop(BaseBasicTrainingLoop):
                 "NaN detected in loss so backpropagation is skipped "
                 f"(iteration: {engine.iteration})"
             )
-            engine.fire_event(EngineEvents.TRAIN_ITERATION_COMPLETED)
+            engine.trigger_event(EngineEvents.TRAIN_ITERATION_COMPLETED)
             return output
 
         self._accelerator.backward(loss)
         if self._clip_grad_fn:
             self._clip_grad_fn(model.parameters(), *self._clip_grad_args)
-        engine.fire_event(EngineEvents.TRAIN_BACKWARD_COMPLETED)
+        engine.trigger_event(EngineEvents.TRAIN_BACKWARD_COMPLETED)
 
         optimizer.step()
-        engine.fire_event(EngineEvents.TRAIN_ITERATION_COMPLETED)
+        engine.trigger_event(EngineEvents.TRAIN_ITERATION_COMPLETED)
 
         return output
 
