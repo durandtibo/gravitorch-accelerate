@@ -3,13 +3,13 @@ from __future__ import annotations
 __all__ = ["AccelerateEvaluationLoop"]
 
 import logging
-from collections.abc import Iterable
 from typing import Any
 
 import torch
 from accelerate import Accelerator
 from coola.utils import str_indent, str_mapping
-from gravitorch.engines.base import BaseEngine
+from gravitorch.datastreams import IterableDataStream
+from gravitorch.engines import BaseEngine
 from gravitorch.engines.events import EngineEvents
 from gravitorch.loops.evaluation import BaseBasicEvaluationLoop
 from gravitorch.loops.evaluation.conditions import BaseEvalCondition
@@ -103,23 +103,20 @@ class AccelerateEvaluationLoop(BaseBasicEvaluationLoop):
         return f"{self.__class__.__qualname__}(\n  {args}\n)"
 
     def _eval_one_batch(self, engine: BaseEngine, model: Module, batch: Any) -> dict:
-        engine.fire_event(EngineEvents.EVAL_ITERATION_STARTED)
+        engine.trigger_event(EngineEvents.EVAL_ITERATION_STARTED)
         with torch.set_grad_enabled(self._grad_enabled):
             output = model(batch)
-        engine.fire_event(EngineEvents.EVAL_ITERATION_COMPLETED)
+        engine.trigger_event(EngineEvents.EVAL_ITERATION_COMPLETED)
         return output
 
-    def _prepare_model_dataflow(self, engine: BaseEngine) -> tuple[Module, Iterable]:
-        logger.info("Preparing the model and data loader...")
+    def _prepare_model_datastream(self, engine: BaseEngine) -> tuple[Module, IterableDataStream]:
+        logger.info("Preparing the model and datastream...")
         model, dataloader = self._accelerator.prepare(
             engine.model,
-            engine.datasource.get_dataloader(loader_id=self._tag, engine=engine),
+            engine.datasource.get_iterable(iter_id=self._tag, engine=engine),
         )
-        logger.info("Evaluation data loader has been created")
-        return model, dataloader
-
-    def _prepare_model_dataloader(self, engine: BaseEngine) -> tuple[Module, Iterable]:
-        return self._prepare_model_dataflow(engine)  # TODO: remove later
+        logger.info("Evaluation datastream has been created")
+        return model, IterableDataStream(dataloader)
 
     def _setup_accelerator(self, accelerator: Accelerator | dict) -> Accelerator:
         r"""Sets up the accelerator.

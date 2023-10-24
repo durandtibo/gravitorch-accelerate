@@ -146,7 +146,7 @@ def test_accelerate_evaluation_loop_eval_with_loss_history() -> None:
 
 
 def test_accelerate_evaluation_loop_eval_no_dataset() -> None:
-    engine = create_dummy_engine(datasource=Mock(has_dataloader=Mock(return_value=False)))
+    engine = create_dummy_engine(datasource=Mock(has_iterable=Mock(return_value=False)))
     evaluation_loop = AccelerateEvaluationLoop()
     evaluation_loop.eval(engine)
     assert engine.epoch == -1
@@ -209,7 +209,7 @@ def test_accelerate_evaluation_loop_eval_skip_evaluation() -> None:
 
 
 @mark.parametrize("event", (EngineEvents.EVAL_EPOCH_STARTED, EngineEvents.EVAL_EPOCH_COMPLETED))
-def test_accelerate_evaluation_loop_fire_event_eval_epoch_events(event: str) -> None:
+def test_accelerate_evaluation_loop_trigger_event_eval_epoch_events(event: str) -> None:
     engine = create_dummy_engine()
     engine.add_event_handler(
         event, GEventHandler(increment_epoch_handler, handler_kwargs={"engine": engine})
@@ -223,7 +223,7 @@ def test_accelerate_evaluation_loop_fire_event_eval_epoch_events(event: str) -> 
 @mark.parametrize(
     "event", (EngineEvents.EVAL_ITERATION_STARTED, EngineEvents.EVAL_ITERATION_COMPLETED)
 )
-def test_accelerate_evaluation_loop_fire_event_eval_iteration_events(event: str) -> None:
+def test_accelerate_evaluation_loop_trigger_event_eval_iteration_events(event: str) -> None:
     engine = create_dummy_engine()
     engine.add_event_handler(
         event, GEventHandler(increment_epoch_handler, handler_kwargs={"engine": engine})
