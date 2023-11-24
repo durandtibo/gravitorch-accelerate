@@ -25,10 +25,10 @@
     </a>
     <br/>
     <a href="https://pypi.org/project/gtaccelerate/">
-        <img alt="PYPI version" src="https://img.shields.io/pypi/v/gravitorch-accelerate">
+        <img alt="PYPI version" src="https://img.shields.io/pypi/v/gtaccelerate">
     </a>
     <a href="https://pypi.org/project/gtaccelerate/">
-        <img alt="Python" src="https://img.shields.io/pypi/pyversions/gravitorch-accelerate.svg">
+        <img alt="Python" src="https://img.shields.io/pypi/pyversions/gtaccelerate.svg">
     </a>
     <a href="https://opensource.org/licenses/BSD-3-Clause">
         <img alt="BSD-3-Clause" src="https://img.shields.io/pypi/l/gtaccelerate">
