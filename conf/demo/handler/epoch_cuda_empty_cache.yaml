@@ -1,0 +1,2 @@
+epoch_cuda_empty_cache:
+  _target_: gravitorch.handlers.EpochCudaEmptyCache

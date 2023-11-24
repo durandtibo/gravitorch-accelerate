@@ -1,0 +1,2 @@
+epoch_lr_scheduler_updater:
+  _target_: gravitorch.handlers.EpochLRSchedulerUpdater

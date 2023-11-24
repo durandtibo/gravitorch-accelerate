@@ -1,0 +1,7 @@
+# Early stopping should be called before to store the state dict
+early_stopping_multiclass_accuracy_patience_5:
+  _target_: gravitorch.handlers.EarlyStopping
+  metric_name: eval/cat_acc_accuracy
+  patience: 5
+  delta: 0.0
+  cumulative_delta: False

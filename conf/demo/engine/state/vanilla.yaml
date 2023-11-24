@@ -1,0 +1,3 @@
+_target_: gravitorch.utils.engine_states.EngineState
+max_epochs: ${oc.select:max_epochs,100}
+random_seed: ${oc.select:random_seed,42}

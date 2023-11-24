@@ -1,0 +1,10 @@
+_target_: gravitorch.models.networks.BetaMLP
+input_size: ${feature_size}
+hidden_sizes:
+  - ${oc.select:hidden_size,128}
+  - ${oc.select:hidden_size,128}
+  - ${oc.select:hidden_size,128}
+  - ${num_classes}
+activation:
+  _target_: torch.nn.ReLU
+dropout: 0

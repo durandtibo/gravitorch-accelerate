@@ -1,0 +1,3 @@
+_target_: gravitorch.creators.optimizer.OptimizerCreator
+optimizer_config: ${oc.select:optimizer,null}
+add_module_to_engine: true

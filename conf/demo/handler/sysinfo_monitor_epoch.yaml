@@ -1,0 +1,6 @@
+sysinfo_monitor_epoch_train:
+  _target_: gravitorch.handlers.EpochSysInfoMonitor
+  event: train_epoch_completed
+sysinfo_monitor_epoch_eval:
+  _target_: gravitorch.handlers.EpochSysInfoMonitor
+  event: eval_epoch_completed

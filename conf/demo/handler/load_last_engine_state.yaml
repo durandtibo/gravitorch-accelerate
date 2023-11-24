@@ -1,0 +1,5 @@
+load_last_engine_state_dict:
+  _target_: gravitorch.handlers.EngineStateLoader
+  path: ${checkpoint_dir}/last/ckpt_engine_0.pt
+  event: started
+  missing_ok: false

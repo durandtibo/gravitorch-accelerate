@@ -1,0 +1,8 @@
+defaults:
+  - datasource_creator: vanilla
+  - model_creator: vanilla
+  - optimizer_creator: vanilla
+  - lr_scheduler_creator: vanilla
+  - _self_
+
+_target_: gravitorch.creators.core.AdvancedCoreCreator

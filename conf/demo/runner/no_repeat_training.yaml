@@ -1,0 +1,9 @@
+_target_: gravitorch.runners.NoRepeatRunner
+runner:
+  _target_: gravitorch.runners.TrainingRunner
+  engine: ${engine}
+  handlers: ${oc.dict.values:handler}
+  exp_tracker: ${oc.select:exp_tracker,null}
+  random_seed: ${oc.select:random_seed,42}
+  log_only_main_process: true
+path: ${exp_dir}

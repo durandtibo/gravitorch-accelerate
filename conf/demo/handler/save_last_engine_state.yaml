@@ -1,0 +1,6 @@
+save_last_engine_state_dict:
+  _target_: gravitorch.handlers.TagEngineStateSaver
+  path: ${checkpoint_dir}
+  event: epoch_completed
+  tag: last
+  only_main_process: true

@@ -1,0 +1,6 @@
+save_best_engine_state_dict:
+  _target_: gravitorch.handlers.BestEngineStateSaver
+  path: ${checkpoint_dir}
+  event: epoch_completed
+  keys: ${best_checkpoints_to_save}
+  only_main_process: true

@@ -1,0 +1,4 @@
+_target_: gravitorch.utils.exp_trackers.main_process_only
+exp_tracker:
+  _target_: gravitorch.utils.exp_trackers.TensorBoardExpTracker
+  experiment_path: ${oc.select:exp_dir,null}  # use tmp directory if not defined

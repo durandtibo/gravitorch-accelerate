@@ -1,0 +1,4 @@
+_target_: gravitorch.creators.lr_scheduler.LRSchedulerCreator
+add_module_to_engine: true
+lr_scheduler_config: ${oc.select:lr_scheduler,null}
+lr_scheduler_handler: ${oc.select:lr_scheduler_handler,null}

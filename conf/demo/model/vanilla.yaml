@@ -1,0 +1,2 @@
+_target_: gravitorch.models.VanillaModel
+random_seed: ${random_seed}
