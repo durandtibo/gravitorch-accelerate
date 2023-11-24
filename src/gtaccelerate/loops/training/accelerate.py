@@ -3,14 +3,13 @@ from __future__ import annotations
 __all__ = ["AccelerateTrainingLoop"]
 
 import logging
-from collections.abc import Callable
+from collections.abc import Callable, Iterable
 from typing import Any
 
 import torch
 from accelerate import Accelerator
 from coola.utils import str_indent, str_mapping
 from gravitorch import constants as ct
-from gravitorch.datastreams import IterableDataStream
 from gravitorch.engines import BaseEngine
 from gravitorch.engines.events import EngineEvents
 from gravitorch.loops.observers import BaseLoopObserver
@@ -109,17 +108,17 @@ class AccelerateTrainingLoop(BaseBasicTrainingLoop):
         )
         return f"{self.__class__.__qualname__}(\n  {args}\n)"
 
-    def _prepare_model_optimizer_datastream(
+    def _prepare_model_optimizer_dataiter(
         self, engine: BaseEngine
-    ) -> tuple[Module, Optimizer, IterableDataStream]:
-        logger.info("Preparing the model, optimizer, and datastream...")
+    ) -> tuple[Module, Optimizer, Iterable]:
+        logger.info("Preparing the model, optimizer, and data iterable...")
         model, optimizer, dataloader = self._accelerator.prepare(
             engine.model,
             engine.optimizer,
             engine.datasource.get_iterable(iter_id=self._tag, engine=engine),
         )
-        logger.info("Training datastream has been created")
-        return model, optimizer, IterableDataStream(dataloader)
+        logger.info("Training model, optimizer, and data iterable have been created")
+        return model, optimizer, dataloader
 
     def _train_one_batch(
         self, engine: BaseEngine, model: Module, optimizer: Optimizer, batch: Any
