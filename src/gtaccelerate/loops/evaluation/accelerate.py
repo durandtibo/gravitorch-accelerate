@@ -3,12 +3,12 @@ from __future__ import annotations
 __all__ = ["AccelerateEvaluationLoop"]
 
 import logging
+from collections.abc import Iterable
 from typing import Any
 
 import torch
 from accelerate import Accelerator
 from coola.utils import str_indent, str_mapping
-from gravitorch.datastreams import IterableDataStream
 from gravitorch.engines import BaseEngine
 from gravitorch.engines.events import EngineEvents
 from gravitorch.loops.evaluation import BaseBasicEvaluationLoop
@@ -109,14 +109,14 @@ class AccelerateEvaluationLoop(BaseBasicEvaluationLoop):
         engine.trigger_event(EngineEvents.EVAL_ITERATION_COMPLETED)
         return output
 
-    def _prepare_model_datastream(self, engine: BaseEngine) -> tuple[Module, IterableDataStream]:
-        logger.info("Preparing the model and datastream...")
+    def _prepare_model_dataiter(self, engine: BaseEngine) -> tuple[Module, Iterable]:
+        logger.info("Preparing the model and data iterable...")
         model, dataloader = self._accelerator.prepare(
             engine.model,
             engine.datasource.get_iterable(iter_id=self._tag, engine=engine),
         )
-        logger.info("Evaluation datastream has been created")
-        return model, IterableDataStream(dataloader)
+        logger.info("Evaluation model and data iterable have been prepared")
+        return model, dataloader
 
     def _setup_accelerator(self, accelerator: Accelerator | dict) -> Accelerator:
         r"""Sets up the accelerator.
