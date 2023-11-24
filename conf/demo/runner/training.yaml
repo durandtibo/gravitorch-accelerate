@@ -1,0 +1,6 @@
+_target_: gravitorch.runners.TrainingRunner
+engine: ${engine}
+handlers: ${oc.dict.values:handler}
+exp_tracker: ${oc.select:exp_tracker,null}
+random_seed: ${oc.select:random_seed,4257679340025740942}
+resources: ${oc.select:resources,null}

@@ -1,0 +1,3 @@
+model_initializer:
+  _target_: gravitorch.handlers.ModelInitializer
+  initializer: ${oc.select:initializer,null}

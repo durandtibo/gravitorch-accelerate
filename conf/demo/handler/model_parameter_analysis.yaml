@@ -1,0 +1,6 @@
+model_parameter_analysis:
+  _target_: gravitorch.handlers.ModelParameterAnalyzer
+  events:
+    - started
+    - train_started
+    - completed

@@ -1,0 +1,31 @@
+_target_: gravitorch.datasources.DataCreatorDataSource
+
+data_creators:
+  train:
+    _target_: gravitorch.data.datacreators.HypercubeVertexDataCreator
+    num_examples: 100000
+    num_classes: ${oc.select:num_classes,50}
+    feature_size: ${oc.select:feature_size,64}
+    noise_std: 0.2
+    random_seed: 3587656467008659679
+  eval:
+    _target_: ${..train._target_}
+    num_examples: 100000
+    num_classes: ${..train.num_classes}
+    feature_size: ${..train.feature_size}
+    noise_std: ${..train.noise_std}
+    random_seed: 10206458744488317472
+
+datapipe_creators:
+  train:
+    _target_: gravitorch.creators.datapipe.EpochRandomDataPipeCreator
+    config:
+      _target_: gravitorch.datapipes.iter.DictBatcher
+      batch_size: ${oc.select:batch_size,32}
+      shuffle: true
+  eval:
+    _target_: gravitorch.creators.datapipe.ChainedDataPipeCreator
+    config:
+      - _target_: gravitorch.datapipes.iter.DictBatcher
+        batch_size: ${oc.select:batch_size,32}
+        shuffle: false

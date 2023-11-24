@@ -1,0 +1,9 @@
+_target_: gtaccelerate.loops.training.AccelerateTrainingLoop
+clip_grad:
+  name: clip_grad_norm
+  max_norm: 1
+  norm_type: 2
+set_grad_to_none: true
+profiler: null
+accelerator:
+  device_placement: false

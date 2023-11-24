@@ -1,0 +1,5 @@
+save_best_engine_history:
+  _target_: gravitorch.handlers.BestHistorySaver
+  path: ${exp_dir}/histories
+  event: completed
+  only_main_process: true

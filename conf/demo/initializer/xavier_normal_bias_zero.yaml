@@ -1,0 +1,10 @@
+_target_: gravitorch.nn.init.SequentialInitializer
+initializers:
+  - _target_: gravitorch.nn.init.XavierNormal
+    gain: 1.0
+    learnable_only: true
+    log_info: true
+  - _target_: gravitorch.nn.init.ConstantBias
+    value: 0.0
+    learnable_only: true
+    log_info: true

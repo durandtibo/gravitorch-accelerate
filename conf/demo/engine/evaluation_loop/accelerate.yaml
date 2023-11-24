@@ -1,0 +1,9 @@
+_target_: gtaccelerate.loops.evaluation.AccelerateEvaluationLoop
+grad_enabled: false
+condition:
+  _target_: gravitorch.loops.evaluation.conditions.EveryEpochEvalCondition
+  every: 1
+observer: null
+profiler: null
+accelerator:
+  device_placement: false

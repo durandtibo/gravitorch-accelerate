@@ -1,0 +1,4 @@
+_target_: gravitorch.creators.datasource.DataSourceCreator
+config: ${datasource}
+attach_to_engine: true
+add_module_to_engine: true

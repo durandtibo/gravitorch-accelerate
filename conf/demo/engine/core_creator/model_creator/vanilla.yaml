@@ -1,0 +1,5 @@
+_target_: gravitorch.creators.model.ModelCreator
+model_config: ${model}
+attach_model_to_engine: true
+add_module_to_engine: true
+device_placement: ${oc.select:device_placement,null}

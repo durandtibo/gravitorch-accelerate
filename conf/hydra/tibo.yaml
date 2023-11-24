@@ -1,0 +1,39 @@
+# @package _global_
+hydra:
+  output_subdir: .
+
+  job:
+    chdir: False
+
+  run:
+    dir: ${hydra_dir}
+
+  sweep:
+    dir: ${hydra.run.dir}
+
+  job_logging:
+    formatters:
+      simple:
+        format: '%(asctime)s [%(levelname)s] %(name)s:%(lineno)s - %(message)s'
+        datefmt: "%Y-%m-%d %H:%M:%S"
+      colored:
+        '()': 'colorlog.ColoredFormatter'
+        format: "%(log_color)s(%(process)d) %(asctime)s [%(levelname)s] %(name)s:%(lineno)s%(reset)s %(message_log_color)s%(message)s"
+        datefmt: "%Y-%m-%d %H:%M:%S"
+        log_colors:
+          DEBUG: 'cyan'
+          INFO: 'green'
+          WARNING: 'bold_yellow'
+          ERROR: 'red'
+          CRITICAL: 'bold_red'
+        secondary_log_colors:
+          message:
+            DEBUG: 'cyan'
+            INFO: 'reset'
+            WARNING: 'bold_yellow'
+            ERROR: 'red'
+            CRITICAL: 'bold_red'
+
+    handlers:
+      console:
+        formatter: colored

@@ -1,0 +1,5 @@
+save_epoch_engine_state_dict:
+  _target_: gravitorch.handlers.EpochEngineStateSaver
+  path: ${checkpoint_dir}
+  event: epoch_completed
+  only_main_process: true

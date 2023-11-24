@@ -1,0 +1,6 @@
+cuda_memory_monitor_epoch_train:
+  _target_: gravitorch.handlers.EpochCudaMemoryMonitor
+  event: train_epoch_completed
+cuda_memory_monitor_epoch_eval:
+  _target_: gravitorch.handlers.EpochCudaMemoryMonitor
+  event: eval_epoch_completed

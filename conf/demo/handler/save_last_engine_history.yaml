@@ -1,0 +1,5 @@
+save_last_engine_history:
+  _target_: gravitorch.handlers.LastHistorySaver
+  path: ${exp_dir}/histories
+  event: epoch_completed
+  only_main_process: true

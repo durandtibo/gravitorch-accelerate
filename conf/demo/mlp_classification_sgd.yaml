@@ -1,0 +1,48 @@
+# @package _global_
+defaults:
+  - ../hydra: tibo
+  - runner: training
+  - resources: default
+  - exp_tracker: noop
+  - device_placement: auto
+  - engine: alpha
+  - engine/core_creator: advanced
+  - engine/state: vanilla
+  - engine/training_loop: accelerate_clip_grad_norm_1
+  - engine/evaluation_loop: accelerate
+  - datasource: demo_multiclass
+  - model: vanilla
+  - model/network: mlp3_relu
+  - model/criterion: cross_entropy
+  - model/metrics: categorical_accuracy
+  - optimizer: sgd
+  - initializer: xavier_normal_bias_zero
+  - handler:
+      - model_architecture_analysis
+      - network_architecture_analysis
+      - model_initializer
+      - model_parameter_analysis
+      - sysinfo_monitor_epoch
+      - cuda_memory_monitor_epoch
+      - epoch_lr_scheduler_updater
+      - epoch_optimizer_monitor
+      - epoch_cuda_empty_cache
+      - save_best_engine_history
+      - save_last_engine_history
+      # Usually, state dict should be saved after the other handlers to capture the correct state
+      - save_best_engine_state
+      - save_epoch_engine_state
+      - save_last_engine_state
+  - _self_
+
+random_seed: 42
+feature_size: 128
+hidden_size: 128
+num_classes: 50
+max_epochs: 100
+
+# Specifies the path where the logs/artifacts of the experiment are stored
+exp_dir: ${oc.env:PWD}/outputs/demo/${hydra:job.config_name}
+checkpoint_dir: ${exp_dir}/checkpoints
+# Specifies the path where the hydra logs are stored
+hydra_dir: ${exp_dir}/hydra/${now:%Y-%m-%d}/${now:%H-%M-%S}

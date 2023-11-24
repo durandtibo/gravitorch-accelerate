@@ -1,0 +1,22 @@
+# @package _global_
+model:
+  metrics:
+    train_metric:
+      _target_: gravitorch.models.metrics.VanillaMetric
+      metric:
+        _target_: gravitorch.models.metrics.CategoricalAccuracy
+        mode: train
+        state:
+          _target_: gravitorch.models.metrics.state.ExtendedAccuracyState
+
+    eval_metric:
+      _target_: gravitorch.models.metrics.VanillaMetric
+      metric:
+        _target_: gravitorch.models.metrics.CategoricalAccuracy
+        mode: eval
+        state:
+          _target_: gravitorch.models.metrics.state.ExtendedAccuracyState
+
+best_checkpoints_to_save:
+  - eval/loss
+  - eval/cat_acc_accuracy

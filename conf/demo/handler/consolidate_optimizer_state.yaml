@@ -1,0 +1,2 @@
+consolidate_optimizer_state_dict:
+  _target_: gravitorch.handlers.ConsolidateOptimizerState
