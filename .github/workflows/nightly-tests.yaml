@@ -9,6 +9,8 @@ jobs:
     uses: ./.github/workflows/cyclic-imports.yaml
   doctest:
     uses: ./.github/workflows/doctest.yaml
+  experiment:
+    uses: ./.github/workflows/experiment.yaml
   format:
     uses: ./.github/workflows/format.yaml
   pre-commit:

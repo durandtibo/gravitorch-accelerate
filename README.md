@@ -84,7 +84,7 @@ The following is the corresponding `gtaccelerate` versions and supported depende
 
 | `gtaccelerate` | `accelerate`   | `gravitorch`       | `torch`          | `python`      |
 |----------------|----------------|--------------------|------------------|---------------|
-| `main`         | `>=0.20,<0.24` | `>=0.0.22,<0.0.23` | `>=2.0.0,<2.2.0` | `>=3.9,<3.12` |
+| `main`         | `>=0.20,<0.25` | `>=0.0.23,<0.0.24` | `>=2.0.0,<2.2.0` | `>=3.9,<3.12` |
 
 <sup>*</sup> indicates an optional dependency
 
