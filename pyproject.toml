@@ -43,7 +43,7 @@ all = []
 optional = true
 
 [tool.poetry.group.exp.dependencies]
-colorlog = ">=6.7,<6.8"
+colorlog = ">=6.7,<6.9"
 
 [tool.poetry.group.docs]
 optional = true
